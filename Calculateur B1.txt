@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur de Volume d'Alcool Pur</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 5px;
+        }
+        label {
+            display: inline-block;
+            width: 220px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculateur de Volume d'Alcool Pur (L)</h1>
+    
+    <label for="density">Masse volumique (kg/m³) :</label>
+    <input type="number" id="density" placeholder="Ex: 950" required><br>
+
+    <label for="weight">Poids du liquide (kg) :</label>
+    <input type="number" id="weight" placeholder="Ex: 500" required><br>
+
+    <label for="alcoholPercentage">Titre alcoométrique (%) :</label>
+    <input type="number" id="alcoholPercentage" placeholder="Ex: 40" required><br>
+
+    <button onclick="calculateAlcohol()">Calculer le volume d'alcool pur</button>
+
+    <h2>Résultat :</h2>
+    <p id="result">Le volume d'alcool pur sera affiché ici.</p>
+
+    <script>
+        function calculateAlcohol() {
+            const density = parseFloat(document.getElementById('density').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const alcoholPercentage = parseFloat(document.getElementById('alcoholPercentage').value);
+
+            if (isNaN(density) || isNaN(weight) || isNaN(alcoholPercentage) || density <= 0 || weight <= 0 || alcoholPercentage <= 0) {
+                document.getElementById('result').innerHTML = "Veuillez entrer des valeurs valides.";
+                return;
+            }
+
+            // Calcul du volume du liquide en m³
+            const volumeInCubicMeters = weight / density;
+
+            // Calcul du volume d'alcool pur en litres
+            const pureAlcoholVolume = volumeInCubicMeters * (alcoholPercentage / 100) * 1000;
+
+            // Affichage du résultat
+            document.getElementById('result').innerHTML = `Volume d'alcool pur : ${pureAlcoholVolume.toFixed(2)} litres`;
+        }
+    </script>
+</body>
+</html>
